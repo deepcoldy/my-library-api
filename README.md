@@ -36,6 +36,8 @@ $ npm stop
 
 [egg.js](https://eggjs.org/zh-cn/)
 
-###插件
+### 插件
+
 [egg-mysql](https://github.com/eggjs/egg-mysql) 为了连接mysql数据库
+
 [egg-cors](https://github.com/eggjs/egg-cors) 为了允许跨域请求
