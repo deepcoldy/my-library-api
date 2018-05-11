@@ -1,15 +1,53 @@
 'use strict';
 
 const Service = require('egg').Service;
+const crypto = require('crypto');
+
+function md5(text) {
+  return crypto.createHash('md5').update(text).digest('hex');
+}
 
 class user extends Service {
-  async login(q) {
-    const result = await this.app.mysql.query("select * from Book WHERE CONCAT(IFNULL(`name`,''),IFNULL(`writer`,'')) LIKE ?", `%${q}%`);
+  async login({
+    account,
+    password,
+  }) {
+    const result = await this.app.mysql.get('User', {
+      account,
+    });
+    if (result && result.password === md5(password)) {
+      this.ctx.session.user = result;
+      return {
+        login: 'success',
+      };
+    }
+    this.ctx.status = 500;
+    return {
+      login: 'failed',
+    };
+  }
+  async register({
+    name,
+    account,
+    password,
+    number: student_number,
+  }) {
+    const result = await this.app.mysql.insert('User', {
+      name,
+      account,
+      password: md5(password),
+      student_number,
+    });
     return result;
   }
-  async register(id) {
-    const result = await this.app.mysql.query('select * from Book WHERE id = ?', id);
-    return result[0];
+  async profile(id) {
+    const result = await this.app.mysql.get('User', {
+      id,
+    });
+    if (result) {
+      this.ctx.session.user = result;
+      return result;
+    }
   }
 }
 

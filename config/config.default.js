@@ -30,6 +30,12 @@ module.exports = appInfo => {
       callbackURL: '/auth/weixin/callback',
       scope: 'snsapi_userinfo',
     },
+    security: {
+      csrf: false,
+    },
+    session: {
+      renew: true,
+    },
   };
 
   // use for cookie sign key, should change to your own and keep security
