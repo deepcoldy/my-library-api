@@ -22,8 +22,8 @@ module.exports = appInfo => {
       agent: false,
     },
     cors: {
-      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
-      withCredentials: false,
+      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+      withCredentials: true,
     },
     passportWeiXin: {
       clientID: 'wx75bd6c02e0a73d49',
