@@ -22,7 +22,7 @@ module.exports = appInfo => {
       agent: false,
     },
     cors: {
-      origin: '*',
+      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
       withCredentials: false,
     },
     passportWeiXin: {
