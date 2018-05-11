@@ -34,11 +34,7 @@ module.exports = appInfo => {
     security: {
       csrf: false,
       domainWhiteList: [
-        'http://localhost',
-        'http://library.iscode.cn',
-        'http://mp.weixin.qq.com',
-        'http://127.0.0.1:7001',
-        'http://127.0.0.1:8080',
+        '.iscode.cn',
       ],
     },
     session: {
