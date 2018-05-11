@@ -24,6 +24,12 @@ module.exports = appInfo => {
     cors: {
       origin: '*',
     },
+    passportWeiXin: {
+      clientID: 'wx75bd6c02e0a73d49',
+      secret: '4075e8037a4334847fb2c5b7c113cf6d',
+      callbackURL: '/auth/weixin/callback',
+      scope: 'snsapi_userinfo',
+    },
   };
 
   // use for cookie sign key, should change to your own and keep security
