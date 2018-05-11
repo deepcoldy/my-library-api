@@ -16,7 +16,9 @@ class user extends Service {
       account,
     });
     if (result && result.password === md5(password)) {
+      console.log(result);
       this.ctx.session.user = result;
+      console.log(this.ctx.session);
       return {
         login: 'success',
       };
