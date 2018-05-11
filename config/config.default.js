@@ -32,6 +32,10 @@ module.exports = appInfo => {
     },
     security: {
       csrf: false,
+      domainWhiteList: [
+        'http://localhost:8080',
+        'http://library.iscode.cn',
+      ],
     },
     session: {
       renew: true,
