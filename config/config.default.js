@@ -21,14 +21,14 @@ module.exports = appInfo => {
       // 是否加载到 agent 上，默认关闭
       agent: false,
     },
-    cors: {
-      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
-      withCredentials: true,
-    },
+    // cors: {
+    //   allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+    //   withCredentials: true,
+    // },
     passportWeiXin: {
       clientID: 'wx75bd6c02e0a73d49',
       secret: '4075e8037a4334847fb2c5b7c113cf6d',
-      callbackURL: '/auth/weixin/callback',
+      callbackURL: '/api/auth/weixin/callback',
       scope: 'snsapi_userinfo',
     },
     security: {
