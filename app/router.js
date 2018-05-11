@@ -13,7 +13,6 @@ module.exports = app => {
   router.get('/register', controller.user.register);
   router.get('/search', controller.search.index);
   router.get('/search/detail', controller.search.detail);
-  router.get('/MP_verify_gEaVKEDCW2TCQSaC.txt', controller.auth.file);
 
   app.get('/auth/weixin', app.passport.authenticate('loginByWeixinClient'));
   app.get('/auth/weixin/callback', app.passport.authenticate('loginByWeixinClient', { successRedirect: '/search', failureRedirect: '/login' })
