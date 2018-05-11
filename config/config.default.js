@@ -23,7 +23,7 @@ module.exports = appInfo => {
     },
     cors: {
       origin: '*',
-      credentials: true,
+      credentials: false,
     },
     passportWeiXin: {
       clientID: 'wx75bd6c02e0a73d49',
