@@ -1,8 +1,5 @@
 'use strict';
 
-const passport = require('passport');
-const WeixinStrategy = require('passport-weixin');
-
 /**
  * @param {Egg.Application} app - egg application
  */
