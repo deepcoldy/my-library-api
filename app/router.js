@@ -13,6 +13,9 @@ module.exports = app => {
   router.get('/api/search/detail', controller.search.detail); // 书籍详情
 
   app.get('/api/auth/weixin', app.passport.authenticate('loginByWeixinClient')); // 微信登录
-  app.get('/api/auth/weixin/callback', app.passport.authenticate('loginByWeixinClient', { successRedirect: 'http://library.iscode.cn/#/profile', failureRedirect: 'http://library.iscode.cn/#/login' }) // 微信登录回调
+  // app.get('/api/auth/weixin/callback', app.passport.authenticate('loginByWeixinClient', { successRedirect: 'http://library.iscode.cn/#/profile', failureRedirect: 'http://library.iscode.cn/#/login' }) // 微信登录回调
+  app.get('/api/auth/weixin/callback', app.passport.authenticate('loginByWeixinClient', (req, user, done) => {
+    console.log(req, user, done);
+  }) // 微信登录回调
   );
 };
