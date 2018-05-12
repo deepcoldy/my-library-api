@@ -27,6 +27,12 @@ class User extends Controller {
       this.ctx.status = 500;
     }
   }
+  async unbind() {
+    const { ctx } = this;
+    console.log(ctx.session);
+    const result = await ctx.service.user.unbind(ctx.session);
+    this.ctx.body = result;
+  }
 }
 
 module.exports = User;

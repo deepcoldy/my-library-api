@@ -81,6 +81,16 @@ class user extends Service {
       open_id,
     };
   }
+  async unbind({ user, passport }) {
+    const result = await await this.app.mysql.update('User', {
+      open_id: '',
+    }, {
+      where: { account: user.account },
+    });
+    this.ctx.session.user.session = '';
+    this.ctx.session.passport = undefined;
+    return result;
+  }
 }
 
 module.exports = user;
