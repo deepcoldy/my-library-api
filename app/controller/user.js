@@ -16,6 +16,7 @@ class User extends Controller {
   }
   async profile() {
     const { ctx } = this;
+    console.log(ctx.session);
     if (ctx.session.user && ctx.session.user.id) {
       const result = await ctx.service.user.profile(ctx.session.user.id);
       this.ctx.body = result;
