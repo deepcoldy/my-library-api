@@ -20,15 +20,15 @@ class User extends Controller {
     if (ctx.session.user && ctx.session.user.id) {
       const result = await ctx.service.user.profile(ctx.session.user.id);
       this.ctx.body = result;
+    } else if (ctx.session.passport && ctx.session.passport.user && ctx.session.passport.user.id) {
+      const result = await ctx.service.user.selectUserByOpenid(ctx.session.passport.user.id);
+      this.ctx.body = result;
     } else {
       this.ctx.status = 500;
     }
   }
   async weixin() {
     const { ctx } = this;
-    console.log('ctx', ctx);
-    console.log('query', ctx.query);
-    console.log('body', ctx.request.body);
     this.ctx.body = '1';
   }
 }
