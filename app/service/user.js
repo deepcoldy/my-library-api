@@ -8,28 +8,28 @@ function md5(text) {
 }
 
 class user extends Service {
+  async bindWeixin(account, open_id) {
+    if (open_id) {
+      await this.app.mysql.update('User', {
+        open_id,
+      }, {
+        where: { account },
+      }); // 绑定微信openid
+      return await this.app.mysql.get('User', {
+        account,
+      });
+    }
+  }
   async login({
     account,
     password,
     open_id,
   }) {
-    let result = await this.app.mysql.get('User', {
+    const result = await this.app.mysql.get('User', {
       account,
     });
     if (result && result.password === md5(password)) {
-      console.log(result);
-      if (open_id) {
-        await this.app.mysql.update('User', {
-          open_id,
-        }, {
-          where: { account },
-        }); // 绑定微信openid
-        result = await this.app.mysql.get('User', {
-          account,
-        });
-      }
-      this.ctx.session.user = result;
-      console.log(this.ctx.session);
+      this.ctx.session.user = await this.bindWeixin(account, open_id);
       return {
         login: 'success',
       };
@@ -53,10 +53,13 @@ class user extends Service {
     });
     return result;
   }
-  async profile(id) {
-    const result = await this.app.mysql.get('User', {
+  async profile({ user: { id }, passport }) {
+    let result = await this.app.mysql.get('User', {
       id,
     });
+    if (!result.open_id && passport && passport.user && passport.user.id) {
+      result = await this.bindWeixin(result.account, passport.user.id);
+    }
     if (result) {
       this.ctx.session.user = result;
       return result;
