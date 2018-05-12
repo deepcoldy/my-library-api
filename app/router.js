@@ -14,9 +14,6 @@ module.exports = app => {
 
   router.get('/api/auth/profile', controller.user.weixin); // 微信登陆成功回调
   app.get('/api/auth/weixin', app.passport.authenticate('loginByWeixinClient')); // 微信登录
-  app.get('/api/auth/weixin/callback', app.passport.authenticate('loginByWeixinClient', { failureRedirect: '/api/profile' }, (res, user) => {
-    console.log(res, user);
-    res.redirect('/api/auth/profile', user);
-  }) // 微信登录回调
+  app.get('/api/auth/weixin/callback', app.passport.authenticate('loginByWeixinClient', { successRedirect: '/#/profile', failureRedirect: '/api/profile' }) // 微信登录回调
   );
 };
