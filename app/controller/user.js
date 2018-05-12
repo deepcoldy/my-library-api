@@ -28,6 +28,7 @@ class User extends Controller {
     console.log('ctx', ctx);
     console.log('query', ctx.query);
     console.log('body', ctx.request.body);
+    this.ctx.body = '1';
   }
 }
 
