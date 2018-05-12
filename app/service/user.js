@@ -51,6 +51,15 @@ class user extends Service {
       return result;
     }
   }
+  async selectUserByOpenid(open_id) {
+    const result = await this.app.mysql.get('User', {
+      open_id,
+    });
+    if (result) {
+      this.ctx.session.user = result;
+      return result;
+    }
+  }
 }
 
 module.exports = user;

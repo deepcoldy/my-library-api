@@ -23,6 +23,10 @@ class User extends Controller {
       this.ctx.status = 500;
     }
   }
+  async weixin() {
+    const { ctx } = this;
+    console.log(ctx.query);
+  }
 }
 
 module.exports = User;
