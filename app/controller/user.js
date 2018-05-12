@@ -25,7 +25,9 @@ class User extends Controller {
   }
   async weixin() {
     const { ctx } = this;
-    console.log(ctx.query);
+    console.log('ctx', ctx);
+    console.log('query', ctx.query);
+    console.log('body', ctx.request.body);
   }
 }
 
