@@ -15,21 +15,21 @@ class user extends Service {
       }, {
         where: { account },
       }); // 绑定微信openid
-      return await this.app.mysql.get('User', {
-        account,
-      });
     }
+    return await this.app.mysql.get('User', {
+      account,
+    });
   }
   async login({
     account,
     password,
-    open_id,
+    open_id = '',
   }) {
     const result = await this.app.mysql.get('User', {
       account,
     });
     if (result && result.password === md5(password)) {
-      if (open_id) this.ctx.session.user = await this.bindWeixin(account, open_id);
+      this.ctx.session.user = await this.bindWeixin(account, open_id);
       return {
         login: 'success',
       };
