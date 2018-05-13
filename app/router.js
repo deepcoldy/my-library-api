@@ -19,4 +19,5 @@ module.exports = app => {
 
   // 管理后台api
   router.get('/api/books', controller.books.index); // 查询全部书籍
+  router.post('/api/books/add', controller.books.add); // 增加书籍
 };

@@ -4,6 +4,7 @@
   "description": "api for my library",
   "private": true,
   "dependencies": {
+    "dayjs": "^1.5.24",
     "egg": "^2.2.1",
     "egg-cors": "^2.0.0",
     "egg-mysql": "^3.0.0",
