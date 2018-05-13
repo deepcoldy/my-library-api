@@ -16,4 +16,7 @@ module.exports = app => {
   app.get('/api/auth/weixin', app.passport.authenticate('loginByWeixinClient')); // 微信登录
   app.get('/api/auth/weixin/callback', app.passport.authenticate('loginByWeixinClient', { successRedirect: '/#/profile', failureRedirect: '/#/' }) // 微信登录回调
   );
+
+  // 管理后台api
+  router.get('/api/books', controller.books.index); // 查询全部书籍
 };

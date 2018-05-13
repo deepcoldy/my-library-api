@@ -29,7 +29,7 @@ class user extends Service {
       account,
     });
     if (result && result.password === md5(password)) {
-      this.ctx.session.user = await this.bindWeixin(account, open_id);
+      if (open_id) this.ctx.session.user = await this.bindWeixin(account, open_id);
       return {
         login: 'success',
       };
