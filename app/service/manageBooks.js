@@ -19,7 +19,7 @@ class manageBooks extends Service {
     total_number,
     price,
   }) {
-    const result = await this.app.mysql.insert('Book', {
+    let result = await this.app.mysql.insert('Book', {
       name,
       writer,
       publisher,
@@ -28,6 +28,15 @@ class manageBooks extends Service {
       price,
       date: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     });
+    if (result.affectedRows === 1) {
+      result = await this.app.mysql.select('Book', {
+        where: { id: result.insertId },
+      });
+      result.map(item => {
+        item.date = dayjs(item.date).format('YYYY-MM-DD HH:mm:ss');
+        return item;
+      });
+    }
     return result;
   }
   async delete(id) {
