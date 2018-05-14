@@ -65,6 +65,53 @@ class Book extends Service {
     }
     return result;
   }
+  async borrowed(user_id) {
+    const mysql = this.app.mysql;
+    const history = await mysql.query('select *, Borrow.id as record_id from Borrow JOIN Book ON Borrow.book_id = Book.id WHERE Borrow.user_id = ? ORDER BY record_id DESC', user_id);
+    //  
+    history.map((item) => {
+      item.borrow_date = dayjs(item.borrow_date).format('YYYY-MM-DD')
+      item.return_date = dayjs(item.return_date).format('YYYY-MM-DD')
+      item.date = dayjs(item.date).format('YYYY-MM-DD HH:mm:ss')
+      item.due = dayjs(new dayjs()).isAfter(new dayjs(item.return_date))
+    })
+    return history;
+  }
+  async renew(record_id, user_id) {
+    const mysql = this.app.mysql;
+
+    const history = await mysql.select('Borrow', {
+      where: { id: record_id }
+    })
+    if (history[0].renew < 3) {
+      const result = await mysql.update('Borrow', {
+        renew: history[0].renew + 1,
+        return_date: new dayjs(history[0].return_date).add(1, 'month').format('YYYY-MM-DD HH:mm:ss'),
+      }, {
+          where: { id: record_id }
+        })
+      return result;
+    } else {
+      return false
+    }
+  }
+  async return(record_id, user_id) {
+    const mysql = this.app.mysql;
+    const history = await mysql.select('Borrow', {
+      where: { id: record_id }
+    })
+    if (history[0].renew < 3) {
+      const result = await mysql.update('Borrow', {
+        returned: 1,
+        return_date: new dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      }, {
+        where: { id: record_id }
+      })
+      return result;
+    } else {
+      return false
+    }
+  }
 }
 
 module.exports = Book;

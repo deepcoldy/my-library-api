@@ -10,9 +10,13 @@ module.exports = app => {
   router.post('/api/register', controller.user.register); // 注册
   router.get('/api/profile', controller.user.profile); // 个人信息
   router.get('/api/unbind', controller.user.unbind); // 解绑微信
+
   router.get('/api/search', controller.book.search); // 根据作者或书名查询
   router.get('/api/search/detail', controller.book.detail); // 书籍详情
   router.get('/api/book/borrow', controller.book.borrow); // 书籍详情
+  router.get('/api/book/borrowed', controller.book.borrowed); // 借书历史
+  router.get('/api/book/renew', controller.book.renew); // 续借
+  router.get('/api/book/return', controller.book.return); // 还书
 
   app.get('/api/auth/weixin', app.passport.authenticate('loginByWeixinClient')); // 微信登录
   app.get('/api/auth/weixin/callback', app.passport.authenticate('loginByWeixinClient', { successRedirect: '/#/profile', failureRedirect: '/#/' }) // 微信登录回调
