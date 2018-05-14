@@ -20,4 +20,6 @@ module.exports = app => {
   // 管理后台api
   router.get('/api/books', controller.books.index); // 查询全部书籍
   router.post('/api/books/add', controller.books.add); // 增加书籍
+  router.get('/api/books/delete', controller.books.delete); // 删除书籍
+  router.post('/api/books/edit', controller.books.edit); // 编辑书籍
 };
