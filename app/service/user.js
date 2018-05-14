@@ -57,31 +57,29 @@ class user extends Service {
     let result = await this.app.mysql.get('User', {
       id,
     });
-    if (!result.open_id && passport && passport.user && passport.user.id) {
+    if (!result.open_id && passport && passport.user && passport.user.id) { // profile页面直接点击 绑定微信
       result = await this.bindWeixin(result.account, passport.user.id);
     }
+    console.log(result);
     if (result) {
       this.ctx.session.user = result;
       return result;
     }
   }
-  async selectUserByOpenid(open_id) {
+  async selectUserByOpenid(open_id) { // 通过openid查询用户
     const result = await this.app.mysql.get('User', {
       open_id,
     });
     if (result) {
-      this.ctx.session.user = result;
+      this.ctx.session.user = result; // 如果有账号密码，则存入session
       return result;
     }
-    // const newWechatUser = await this.app.mysql.insert('User', {
-    //   open_id,
-    // });
     return {
-      status: 'unbind',
+      status: 'unbind', // 未绑定账号密码
       open_id,
     };
   }
-  async unbind({ user, passport }) {
+  async unbind({ user, passport }) { // 解绑
     const result = await await this.app.mysql.update('User', {
       open_id: '',
     }, {

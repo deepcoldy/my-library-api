@@ -17,15 +17,16 @@ class User extends Controller {
   async profile() { // 获取个人资料接口
     const { ctx } = this;
     console.log(ctx.session);
-    if (ctx.session.user && ctx.session.user.id) {
+    if (ctx.session.user && ctx.session.user.id) { // 账号密码登录->获取用户信息
       const result = await ctx.service.user.profile(ctx.session);
       this.ctx.body = result;
-    } else if (ctx.session.passport && ctx.session.passport.user && ctx.session.passport.user.id) {
+    } else if (ctx.session.passport && ctx.session.passport.user && ctx.session.passport.user.id) { // 微信登录->获取用户信息
       const result = await ctx.service.user.selectUserByOpenid(ctx.session.passport.user.id);
       this.ctx.body = result;
     } else {
       this.ctx.status = 500;
     }
+
   }
   async unbind() {
     const { ctx } = this;

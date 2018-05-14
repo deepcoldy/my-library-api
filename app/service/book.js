@@ -44,13 +44,23 @@ class Book extends Service {
     const book = await mysql.select('Book', {
       where: { id: book_id }
     });
+    const user = await mysql.select('User', {
+      where: { id: user_id }
+    });
     if(book && book[0]){
       if(book[0].available_number){
+        result = await mysql.update('User', {
+          borrow_times: user[0].borrow_times + 1,
+        }, {
+            where: { id: user_id }
+        });
+        if (result.affectedRows !== 1)  return result
         result = await mysql.update('Book', {
           available_number: book[0].available_number - 1,
         }, {
             where: { id: book_id }
         });
+        
       }
     }
     return result;
