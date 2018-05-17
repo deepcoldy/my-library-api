@@ -65,6 +65,11 @@ class Book extends Controller {
     const result = await ctx.service.book.latest();
     this.ctx.body = result;
   }
+  async rank() {
+    const { ctx } = this;
+    const result = await ctx.service.book.rank();
+    this.ctx.body = result;
+  }
 }
 
 module.exports = Book;

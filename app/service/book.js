@@ -123,6 +123,11 @@ class Book extends Service {
     })
     return latest
   }
+  async rank() {
+    const mysql = this.app.mysql;
+    const rank = await mysql.query('select *, count(1) as count from Borrow join Book where Borrow.book_id = Book.id Group by Borrow.book_id order by count DESC')    
+    return rank
+  }
 }
 
 module.exports = Book;

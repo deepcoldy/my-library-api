@@ -18,6 +18,7 @@ module.exports = app => {
   router.get('/api/book/renew', controller.book.renew); // 续借
   router.get('/api/book/return', controller.book.return); // 还书
   router.get('/api/book/latest', controller.book.latest); // 新书
+  router.get('/api/book/rank', controller.book.rank); // 借阅排行
 
   app.get('/api/auth/weixin', app.passport.authenticate('loginByWeixinClient')); // 微信登录
   app.get('/api/auth/weixin/callback', app.passport.authenticate('loginByWeixinClient', { successRedirect: '/#/profile', failureRedirect: '/#/' }) // 微信登录回调
