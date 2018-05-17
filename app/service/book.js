@@ -112,6 +112,17 @@ class Book extends Service {
       return false
     }
   }
+  async latest() {
+    const mysql = this.app.mysql;
+    const latest = await mysql.select('Book', {
+      orders: [['id', 'desc']],
+      limit: 10,
+    })
+    latest.map((item) => {
+      item.date = dayjs(item.date).format('YYYY-MM-DD HH:mm:ss')
+    })
+    return latest
+  }
 }
 
 module.exports = Book;

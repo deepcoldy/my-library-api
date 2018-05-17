@@ -60,6 +60,11 @@ class Book extends Controller {
     const result = await ctx.service.book.return(ctx.query.id, user_id);
     this.ctx.body = result;
   }
+  async latest() {
+    const { ctx } = this;
+    const result = await ctx.service.book.latest();
+    this.ctx.body = result;
+  }
 }
 
 module.exports = Book;
